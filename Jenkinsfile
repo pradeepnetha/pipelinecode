@@ -46,8 +46,15 @@ node {
             //sh "mvn deploy"
             sh "${mvnCmd} deploy"
              //nexusArtifactUploader artifacts: [[artifactId: 'univer', classifier: '', file: '/var/lib/jenkins/pipeline/target/', type: 'war']], credentialsId: 'c7605340-2f7f-4763-ba7b-2422b7c60172', groupId: 'universal', nexusUrl: 'http://192.168.122.85:8081/repository/pradeep/', nexusVersion: 'nexus2', protocol: 'http', repository: 'pradeep', version: '1.1'"
-            // nexusArtifactUploader artifacts: [[artifactId: 'sampleapp', classifier: 'war', file: '/var/lib/jenkins/workspace/pipeline/target/', type: 'war']], credentialsId: 'c7605340-2f7f-4763-ba7b-2422b7c60172', groupId: 'opstree', nexusUrl: 'http://192.168.122.85:8081/repository/pradeep/', nexusVersion: 'nexus2', protocol: 'http', repository: 'pradeep', version: '1.0'
-           // nexusArtifactUploader artifacts: [[artifactId: 'univer', classifier: '', file: '/var/lib/jenkins/workspace/pipeline/target/', type: 'war']], credentialsId: 'dbb94d75-0184-45f8-9177-8a439134b98e', groupId: 'universal', nexusUrl: 'http://192.168.122.85:8081/', nexusVersion: 'nexus2', protocol: 'http', repository: 'pradeep', version: '1.1'
+// nexusArtifactUploader artifacts: [[artifactId: 'sampleapp', classifier: 'war', file: '/var/lib/jenkins/workspace/pipeline/target/', type: 'war']], credentialsId: 'c7605340-2f7f-4763-ba7b-2422b7c60172', groupId: 'opstree', nexusUrl: 'http://192.168.122.85:8081/repository/pradeep/', nexusVersion: 'nexus2', protocol: 'http', repository: 'pradeep', version: '1.0'
+ 
+          // nexusArtifactUploader artifacts: [[artifactId: 'univer', classifier: '', file: '/var/lib/jenkins/workspace/pipeline/target/', type: 'war']], credentialsId: 'dbb94d75-0184-45f8-9177-8a439134b98e', groupId: 'universal', nexusUrl: 'http://192.168.122.85:8081/', nexusVersion: 'nexus2', protocol: 'http', repository: 'pradeep', version: '1.1'
                     }
+                    
+   stage ('mail'){
+      emailext body: 'build status', subject: 'build is success', to: 'pradeep04260@gmail.com'
+   }
+   stage ('slack') {
+       slackSend channel: 'testjenkins', message: 'build is success', tokenCredentialId: 'slack-jenkins'
+   }
 }
-    
